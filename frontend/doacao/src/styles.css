@@ -1,7 +1,10 @@
 :root{
-    --cor-de-sangue: #F80700
+    --cor-de-sangue: #F80700,
+    --cor-de-branco: #F80700
 }
 
-body{
-    background-color: var(--cor-de-sangue);
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
 }

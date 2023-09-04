@@ -1,6 +1,28 @@
-{{title}}
+<head>
+    <link rel="stylesheet" type="text/css" href="./app.component.css">
+</head>
+<div class="doe_sandgue">
+<img src="../assets/doeSangue.jpg" />
+</div>
+<div class="gerenciador">
+    <p class="title">Gerenciador de doadores</p>
+    <div class="opcoes">
+        <p>Selecione uma opção:</p>
+        <label><input type="radio" name="opcao" value="opcao1"> Cadastrar Doadores</label> 
+        <label><input type="radio" name="opcao" value="opcao2"> Quantidade doadores por tipo sanguineo</label>
+        <label><input type="radio" name="opcao" value="opcao3"> Média de idade por tipo sanguineo</label>
+        <label><input type="radio" name="opcao" value="opcao4"> Calcular média imc de 10 em 10 anos</label>
+        <label><input type="radio" name="opcao" value="opcao5"> Percentual de possiveis doadores obesos</label>
+        <label><input type="radio" name="opcao" value="opcao6"> Possiveis doadores por estado</label>
+    </div>
+    <button type="submit" class="btn_selecionar">Selecionar</button>
+</div>
+
+
+
+
 <div>
-    <h2>Doadores Por Estado:</h2>
+
     <div *ngFor="let item of response1">
         <span>{{ item.estado }}</span>
         <span>{{ item.qtdDoadores }}</span>
@@ -9,7 +31,7 @@
   </div>
 
   <div>
-    <h2>Calcular Media Imc:</h2>
+
     <div *ngFor="let item of response2">
         <span>{{ item.faixaIdade }}</span>
         <br>
@@ -19,7 +41,7 @@
   </div>
 
   <div>
-    <h2>Percentual Pessoas Obesas:</h2>
+
     <div *ngFor="let item of response3">
         <span>{{ item.sexo }}</span>
         <br>
@@ -33,7 +55,6 @@
   </div>
 
   <div>
-    <h2>Media de doadores por Tipo Sanguineo:</h2>
     <div *ngFor="let item of response4">
         <span>{{ item.tipoSanguineo }}</span>
         <br>
@@ -43,7 +64,7 @@
   </div>
 
   <div>
-    <h2>Quantidade de Possiveis Doadores para cada Tipo Sanguineo:</h2>
+
     <div *ngFor="let item of response5">
         <span>{{ item.tipoSanguineo }}</span>
         <br>
@@ -51,5 +72,18 @@
         <hr>
     </div>
   </div>
+  <script>
+    // Obtenha todos os radio buttons do grupo
+    const radioButtons = document.querySelectorAll('input[type="radio"][name="opcao"]');
 
+    // Adicione um ouvinte de evento a cada radio button
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('click', () => {
+            // Desmarque todos os radio buttons quando qualquer um deles for clicado
+            radioButtons.forEach(rb => {
+                rb.checked = false;
+            });
+        });
+    });
+</script>
 <router-outlet></router-outlet>

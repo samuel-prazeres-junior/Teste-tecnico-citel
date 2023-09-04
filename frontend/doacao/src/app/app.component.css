@@ -1,0 +1,45 @@
+.doe_sandgue{
+    background-color:#F80700;
+    width: 50%;
+    display: flex;
+    float: left;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 100vh;
+}
+.doe_sandgue img{
+    width: 50%;
+}
+.gerenciador{
+    width: 50%;
+    float: right;
+}
+.gerenciador .title{
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10%;
+}
+.opcoes{
+    margin: 20% auto auto 30px;
+}
+.opcoes p{
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+.opcoes label{
+    display: block;
+    margin: 20px auto;
+    font-size: 20px;
+}
+
+.btn_selecionar{
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    width: 150px;
+    font-size: 18px;
+    height: 40px;
+    margin: 50px 42%;
+}
