@@ -17,6 +17,12 @@ export class DoadorService {
   constructor(private http: HttpClient) { }
 
   private apiUrl = 'http://localhost:8080/doadores/';
+
+  postDoadores(arquivo: File):Observable<Object> {
+      const formData = new FormData();
+      formData.append('file', arquivo);
+      return this.http.post(this.apiUrl, formData);
+  }
   
   getDadosDaAPIDoadoresPorEstado(): Observable<DoadoresPorEstado[]> {
     return this.http.get<DoadoresPorEstado[]>(this.apiUrl+"buscar-por-estado");

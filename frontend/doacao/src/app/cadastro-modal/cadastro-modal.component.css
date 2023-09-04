@@ -1,0 +1,48 @@
+body{
+    font-family: sans-serif;
+}
+.modal{
+    width: 400px;
+    height: 300px;
+}
+
+.title{
+    margin: 40px auto;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+.uploadFile input{
+    display: none;
+}
+.uploadFile {
+    width: 100px;
+    background-color: black;
+    color: white;
+    margin: auto 32%;
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+.obs{
+    margin: 20px auto;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+.btn_submit{
+    margin: 20px 37%;
+    width: 100px;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #2C9D74;
+    color: white;
+}

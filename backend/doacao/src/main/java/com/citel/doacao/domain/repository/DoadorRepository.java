@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Repository
@@ -25,7 +24,7 @@ public interface DoadorRepository extends JpaRepository<DoadorEntity, Long> {
             "    FLOOR((YEAR(CURRENT_DATE) - YEAR(d.dataNasc)) / 10) * 10 " +
             "ORDER BY " +
             "    faixaIdade")
-    Optional<List<ImcMedioDTO>> calcularImcMedioEmCadaFaixaEtariaDeDezEmDezAnos();
+    List<ImcMedioDTO> calcularImcMedioEmCadaFaixaEtariaDeDezEmDezAnos();
 
     @Query("SELECT NEW com.citel.doacao.dto.PessoasObesasDTO( " +
             "    d.sexo AS sexo, " +
@@ -34,14 +33,14 @@ public interface DoadorRepository extends JpaRepository<DoadorEntity, Long> {
             ") " +
             "FROM com.citel.doacao.domain.entity.DoadorEntity d " +
             "GROUP BY d.sexo ")
-    Optional<List<PessoasObesasDTO>> buscarQuantidadePessoasObesosAgrupadasPorGenero();
+    List<PessoasObesasDTO> buscarQuantidadePessoasObesosAgrupadasPorGenero();
 
 
     @Query("SELECT NEW com.citel.doacao.dto.MediaIdadePorTipoSanguineoDTO(d.tipoSanguineo as tipoSanguineo, " +
             " AVG(EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM d.dataNasc)) AS mediaIdade)" +
             "FROM com.citel.doacao.domain.entity.DoadorEntity d " +
             "GROUP BY d.tipoSanguineo")
-    Optional<List<MediaIdadePorTipoSanguineoDTO>> mediaPorTipoSanguineo();
+    List<MediaIdadePorTipoSanguineoDTO> mediaPorTipoSanguineo();
 
 
     @Query("SELECT NEW com.citel.doacao.dto.TipoSanguineoEQuantidadeDeReceptores( d.tipoSanguineo AS tipoSanguineo, COUNT(d.id) AS asqtdPossiveisDoadores )" +
@@ -49,7 +48,7 @@ public interface DoadorRepository extends JpaRepository<DoadorEntity, Long> {
             " WHERE YEAR(CURRENT_DATE) - YEAR(d.dataNasc) BETWEEN 16 AND 69" +
             " AND d.peso > 50" +
             " GROUP BY d.tipoSanguineo")
-    Optional<List<TipoSanguineoEQuantidadeDeReceptores>> contarPessoasPorTipoSanguineo();
+    List<TipoSanguineoEQuantidadeDeReceptores> contarPessoasPorTipoSanguineo();
 
 
 }

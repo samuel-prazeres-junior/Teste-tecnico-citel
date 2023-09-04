@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "tb_doador")
@@ -23,7 +24,7 @@ public class DoadorEntity {
     private String cpf;
     private String rg;
     @Column(name = "data_nasc")
-    private LocalDate dataNasc;
+    private Date dataNasc;
     private String sexo;
     private String mae;
     private String pai;

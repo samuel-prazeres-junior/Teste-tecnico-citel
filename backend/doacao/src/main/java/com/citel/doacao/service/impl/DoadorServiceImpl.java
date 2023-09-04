@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,15 +30,19 @@ public class DoadorServiceImpl implements DoadorService {
     private long soma;
 
     public List<DoadoresPorEstadoDTO> doadoresPorEstado() {
-        return enderecoRepository.countByIdGroupByEstado();
+        List<DoadoresPorEstadoDTO> select = enderecoRepository.qtdPossiveisDoadoresPorEstado();
+        if (select.isEmpty()){
+            throw new RecursosNaoEncontradoException("Recurso não encontrado");
+        }
+        return select;
 
     }
 
     public List<PercentualPessoasObesasDTO> percentualPessoalObesas() {
 
-        Optional<List<PessoasObesasDTO>> select = doadorRepository.buscarQuantidadePessoasObesosAgrupadasPorGenero();
-        if (select.isPresent()) {
-            return doadorRepository.buscarQuantidadePessoasObesosAgrupadasPorGenero().orElseThrow(RuntimeException::new).stream().map(item -> {
+        List<PessoasObesasDTO> select = doadorRepository.buscarQuantidadePessoasObesosAgrupadasPorGenero();
+        if (!select.isEmpty()) {
+            return doadorRepository.buscarQuantidadePessoasObesosAgrupadasPorGenero().stream().map(item -> {
                 return PercentualPessoasObesasDTO
                         .builder()
                         .sexo(item.getSexo())
@@ -51,11 +54,20 @@ public class DoadorServiceImpl implements DoadorService {
         throw new RecursosNaoEncontradoException("Recurso não encontrado");
     }
     public List<ImcMedioDTO> calcularImcMedioEmCadaFaixaEtariaDeDezEmDezAnos() {
-        return doadorRepository.calcularImcMedioEmCadaFaixaEtariaDeDezEmDezAnos().orElseThrow(()-> new RecursosNaoEncontradoException("Recurso não encontrado"));
+        List<ImcMedioDTO> select = doadorRepository.calcularImcMedioEmCadaFaixaEtariaDeDezEmDezAnos();
+        if (select.isEmpty()){
+            throw new RecursosNaoEncontradoException("Recurso não encontrado");
+        }
+        return select;
     }
 
     public List<MediaIdadePorTipoSanguineoDTO> mediaIdadePorTipoSanguineo() {
-        return doadorRepository.mediaPorTipoSanguineo().orElseThrow(()-> new RecursosNaoEncontradoException("Recurso não encontrado"));
+        List<MediaIdadePorTipoSanguineoDTO> select = doadorRepository.mediaPorTipoSanguineo();
+        if (select.isEmpty()){
+            throw new RecursosNaoEncontradoException("Recurso não encontrado");
+
+        }
+        return select;
     }
 
     @Transactional
@@ -74,10 +86,11 @@ public class DoadorServiceImpl implements DoadorService {
 
     @Override
     public List<TipoSanguineoESuaQuantidadeDTO> quantidadeDePossiveisDoadoresParaCadaTipoSamgioneo() {
-
         List<TipoSanguineoESuaQuantidadeDTO> responseTipoSanguineoQuantidade = new ArrayList<>();
-        List<TipoSanguineoEQuantidadeDeReceptores> tiposSanguineos = doadorRepository.contarPessoasPorTipoSanguineo().orElseThrow(()-> new RecursosNaoEncontradoException("Recurso não encontrado"));
-
+        List<TipoSanguineoEQuantidadeDeReceptores> tiposSanguineos = doadorRepository.contarPessoasPorTipoSanguineo();
+        if (tiposSanguineos.isEmpty()){
+            throw new RecursosNaoEncontradoException("Recurso não encontrado");
+        }
         ListTipoSanguineo.tipoSanguineoEseusReceptores().forEach(tabelaTipoSanguineo -> {
            soma = 0;
             tabelaTipoSanguineo.getTiposReceptores().forEach(receptor -> {

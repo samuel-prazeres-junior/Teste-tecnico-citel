@@ -1,0 +1,71 @@
+<div class="modal">
+    <div id="modal" *ngIf="opcao_selecionada === 1">
+        <p class="title">Cadastrar Doadores</p>
+        <form action="form_cadastro">
+            <label for="fileInput" class="uploadFile">Upload file
+                <input type="file" id="fileInput" (change)="atribuirArquivo($event)">
+            </label>
+                <p class="obs">Obs: somente permitido arquivos (.json)</p>
+                <button mat-raised-button type="submit" class="btn_submit" (click)="cadastrarPossiveisDoadores()">Cadastrar</button>
+        </form>
+    </div>
+    
+    <table *ngIf="opcao_selecionada === 2">
+        <tr>
+            <th>Estado </th>
+            <th> Quantidade</th>
+        </tr>
+        <tr *ngFor="let item of filtroDoadoresPorEstado">
+            <td> {{item.estado}} </td>
+            <td> {{item.qtdDoadores}} </td>
+        </tr>
+      </table>
+    
+      <table *ngIf="opcao_selecionada === 3">
+        <tr>
+            <th>Faixa de Idade: </th>
+            <th>Media Imc</th>
+        </tr>
+        <tr *ngFor="let item of filtroMediaImc">
+            <td> {{item.faixaIdade}} </td>
+            <td> {{item.mediaImc}} </td>
+        </tr>
+      </table>
+      
+      <table *ngIf="opcao_selecionada === 4">
+        <tr>
+            <th>Sexo:</th>
+            <th>Total de Obesos:</th>
+            <th>Total Doadores?</th>
+            <th>Porcentagem de Obesos:</th>
+        </tr>
+        <tr *ngFor="let item of filtroPercentualDoadoresObesos">
+            <td> {{item.sexo}} </td>
+            <td> {{item.totalObesos}} </td>
+            <td> {{item.qtdDoadores}} </td>
+            <td> {{item.porcentagemObesos}}"%" </td>
+        </tr>
+      </table>
+      
+      <table *ngIf="opcao_selecionada === 5">
+        <tr>
+            <th>Tipo Sanguineo:</th>
+            <th> Média de Idade:</th>
+        </tr>
+        <tr *ngFor="let item of filtroMediaIdadePorTiPoSanguineo">
+            <td> {{item.tipoSanguineo}} </td>
+            <td> {{item.mediaIdade}} </td>
+        </tr>
+      </table>
+      
+      <table *ngIf="opcao_selecionada === 6">
+        <tr>
+            <th>Tipo Sanguineo:</th>
+            <th>Quantidade Possiveis Doadores:</th>
+        </tr>
+        <tr *ngFor="let item of filtroQuantidadeReceptoresPorTipoSanguineo">
+            <td> {{item.tipoSanguineo}} </td>
+            <td> {{item.qtdPossiveisDoadores}} </td>
+        </tr>
+      </table>
+</div>

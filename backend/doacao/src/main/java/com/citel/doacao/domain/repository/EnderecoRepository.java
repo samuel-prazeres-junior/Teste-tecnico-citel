@@ -17,5 +17,5 @@ public interface EnderecoRepository extends JpaRepository<EnderecoEntity, Long> 
     //    @Query(value = "SELECT COUNT(e.id), e.estado FROM Endereco e GROUP BY e.estado", nativeQuery = true)
 //    @Query(value = "SELECT new com.citel.doacao.domain.model.DoadoresPorEstadoDTO(COUNT(e.id) as qtdDoadores, e.estado as estado) FROM EnderecoEntity e GROUP BY e.estado")
     @Query("select NEW com.citel.doacao.dto.DoadoresPorEstadoDTO(CAST(COUNT(e.id) AS Integer), e.estado) from EnderecoEntity e group by e.estado")
-    List<DoadoresPorEstadoDTO> countByIdGroupByEstado();
+    List<DoadoresPorEstadoDTO> qtdPossiveisDoadoresPorEstado();
 }

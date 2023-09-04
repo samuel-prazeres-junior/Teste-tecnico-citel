@@ -8,82 +8,15 @@
     <p class="title">Gerenciador de doadores</p>
     <div class="opcoes">
         <p>Selecione uma opção:</p>
-        <label><input type="radio" name="opcao" value="opcao1"> Cadastrar Doadores</label> 
-        <label><input type="radio" name="opcao" value="opcao2"> Quantidade doadores por tipo sanguineo</label>
-        <label><input type="radio" name="opcao" value="opcao3"> Média de idade por tipo sanguineo</label>
-        <label><input type="radio" name="opcao" value="opcao4"> Calcular média imc de 10 em 10 anos</label>
-        <label><input type="radio" name="opcao" value="opcao5"> Percentual de possiveis doadores obesos</label>
-        <label><input type="radio" name="opcao" value="opcao6"> Possiveis doadores por estado</label>
+        <mat-radio-group [(ngModel)]="opcao_selecionada">
+          <mat-radio-button class="radio" [value]=1>Cadastrar Doadores</mat-radio-button>
+          <mat-radio-button class="radio" [value]=2>Quantidade de doadores por estado</mat-radio-button>
+          <mat-radio-button class="radio" [value]=3>Média de idade por tipo sanguineo</mat-radio-button>
+          <mat-radio-button class="radio" [value]=4>Calcular média IMC de 10 em 10 anos</mat-radio-button>
+          <mat-radio-button class="radio" [value]=5>Percentual de possiveis doadores obesos</mat-radio-button>
+          <mat-radio-button class="radio" [value]=6>Possiveis doadores por estado</mat-radio-button>      
+        </mat-radio-group>
     </div>
-    <button type="submit" class="btn_selecionar">Selecionar</button>
+    <button type="submit" class="btn_selecionar" (click)="abrirModal()">Selecionar</button>
 </div>
-
-
-
-
-<div>
-
-    <div *ngFor="let item of response1">
-        <span>{{ item.estado }}</span>
-        <span>{{ item.qtdDoadores }}</span>
-        <hr>
-    </div>
-  </div>
-
-  <div>
-
-    <div *ngFor="let item of response2">
-        <span>{{ item.faixaIdade }}</span>
-        <br>
-        <span>{{ item.mediaImc   }}</span>
-        <hr>
-    </div>
-  </div>
-
-  <div>
-
-    <div *ngFor="let item of response3">
-        <span>{{ item.sexo }}</span>
-        <br>
-        <span>{{ item.totalObesos }}</span>
-        <br>
-        <span>{{ item.qtdDoadores }}</span>
-        <br>
-        <span>{{ item.porcentagemObesos }}</span>
-        <hr>
-    </div>
-  </div>
-
-  <div>
-    <div *ngFor="let item of response4">
-        <span>{{ item.tipoSanguineo }}</span>
-        <br>
-        <span>{{ item.mediaIdade }}</span>
-        <hr>
-    </div>
-  </div>
-
-  <div>
-
-    <div *ngFor="let item of response5">
-        <span>{{ item.tipoSanguineo }}</span>
-        <br>
-        <span>{{ item.qtdPossiveisDoadores }}</span>
-        <hr>
-    </div>
-  </div>
-  <script>
-    // Obtenha todos os radio buttons do grupo
-    const radioButtons = document.querySelectorAll('input[type="radio"][name="opcao"]');
-
-    // Adicione um ouvinte de evento a cada radio button
-    radioButtons.forEach(radioButton => {
-        radioButton.addEventListener('click', () => {
-            // Desmarque todos os radio buttons quando qualquer um deles for clicado
-            radioButtons.forEach(rb => {
-                rb.checked = false;
-            });
-        });
-    });
-</script>
 <router-outlet></router-outlet>

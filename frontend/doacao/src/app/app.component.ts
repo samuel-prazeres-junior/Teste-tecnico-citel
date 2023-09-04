@@ -1,48 +1,26 @@
 import { Component } from '@angular/core';
-import{DoadorService} from './doador/service/doador.service'
-import { DoadoresPorEstado } from './interface/DoadoresPorEstado';
-import { MediaImc } from './interface/MediaImc';
-import { PercentualDoadoresObesos } from './interface/PercentualDoadoresObesos';
-import { MediaIdadePorTiPoSanguineo } from './interface/MediaIdadePorTiPoSanguineo';
-import { QuantidadeReceptoresPorTipoSanguineo } from './interface/QuantidadeReceptoresPorTipoSanguineo';
+import {MatDialog} from '@angular/material/dialog';
+import { CadastroModalComponent } from './cadastro-modal/cadastro-modal.component';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
+  
 })
 export class AppComponent {
+  opcao_selecionada = 0;
 
-  response1: DoadoresPorEstado[] = [];
-  response2: MediaImc[] = [];
-  response3: PercentualDoadoresObesos[] = [];
-  response4: MediaIdadePorTiPoSanguineo[] = [];
-  response5: QuantidadeReceptoresPorTipoSanguineo[] = [];
-
-  constructor(private doador: DoadorService) { }
+  constructor(public dialog: MatDialog) { 
+  }
   title = 'Bem Vindo ao site Doações.com';
-
   ngOnInit() {
-    this.doador.getDadosDaAPIDoadoresPorEstado().subscribe((dados :DoadoresPorEstado[]) => {
-      this.response1 = dados
+    this.opcao_selecionada = 1
+  }
+  abrirModal() {
+    this.dialog.open(CadastroModalComponent, {
+      data: this.opcao_selecionada,
     });
-
-    this.doador.getDadosDaAPICalcularMediaImc().subscribe((dados :MediaImc[]) => {
-      this.response2 = dados
-      console.log(dados)
-    });
-
-    this.doador.getDadosDaAPIPercentualDoadoresObesos().subscribe((dados :PercentualDoadoresObesos[]) => {
-      this.response3 = dados
-    });
-
-    this.doador.getDadosDaAPIMediaIdadePorTiPoSanguineo().subscribe((dados :MediaIdadePorTiPoSanguineo[]) => {
-      this.response4 = dados
-    });
-
-    this.doador.getDadosDaAPIQtdPossiveisDoadoresPorTipoSanguineo().subscribe((dados :QuantidadeReceptoresPorTipoSanguineo[]) => {
-      this.response5 = dados
-    });
-
   }
 }
