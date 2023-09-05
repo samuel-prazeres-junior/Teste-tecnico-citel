@@ -43,12 +43,17 @@ export class CadastroModalComponent {
   cadastrarPossiveisDoadores(){
 
       if(this.arquivo != null && this.arquivoValido){
-        this.doadorService.postDoadores(this.arquivo).subscribe(); 
-        this.mostrarToast("Arquivo salvo com sucesso!")
-       this.fecharModal();
+        this.doadorService.postDoadores(this.arquivo).subscribe(
+          res=>{
+            this.mostrarToast("Arquivo salvo com sucesso!")
+            this.fecharModal();
+          }
+          ,error=> {
+          this.mostrarToast("Ocorreu um erro!");
+        });        
       }
       else {
-        this.mostrarToast("Ocorreu um erro!");
+        this.mostrarToast("Arquivo Inv!");
       }
   
   }
