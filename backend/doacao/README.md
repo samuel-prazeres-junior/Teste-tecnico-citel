@@ -1,0 +1,2 @@
+# Comando para inciar uma imagem docker com o banco de dados mysql ja criado
+`docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DATABASE=doacao -p 3306:3306 mysql:latest`
