@@ -41,16 +41,16 @@ export class CadastroModalComponent {
     this.filtroQuantidadeReceptoresPorTipoSanguineo = this.data.resQuantidadeReceptoresPorTipoSanguineo;
   }
   cadastrarPossiveisDoadores(){
-    try{
+
       if(this.arquivo != null && this.arquivoValido){
         this.doadorService.postDoadores(this.arquivo).subscribe(); 
         this.mostrarToast("Arquivo salvo com sucesso!")
        this.fecharModal();
       }
-    
-    }catch(error){
-      this.mostrarToast("Ocorreu um erro!");
-    }
+      else {
+        this.mostrarToast("Ocorreu um erro!");
+      }
+  
   }
   atribuirArquivo(event: Event){
     let target = event.target as HTMLInputElement;
@@ -58,9 +58,11 @@ export class CadastroModalComponent {
     if(target.files != null && target.files.length == 1 && target.files[0].type == "application/json"){
       this.arquivo  = target.files[0];
       this.arquivoValido = true;
+      console.log("certo")
     }
     else{
       this.arquivoValido = false;
+      console.log("errado")
     }
   }
  
