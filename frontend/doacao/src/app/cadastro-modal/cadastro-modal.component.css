@@ -5,7 +5,6 @@ body{
     width: 400px;
     height: 300px;
 }
-
 .title{
     margin: 40px auto;
     font-size: 25px;
@@ -39,10 +38,33 @@ body{
     margin: 20px 37%;
     width: 100px;
 }
-
 .mat-mdc-raised-button:not(:disabled) {
     font-size: 14px;
     font-weight: bold;
     background-color: #2C9D74;
     color: white;
 }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 20px;
+  }
+  /* Estilizar as células de cabeçalho */
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+  /* Estilizar as células de dados */
+  td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  /* Estilizar linhas alternadas (opcional) */
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }

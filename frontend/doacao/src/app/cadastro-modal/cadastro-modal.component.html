@@ -26,13 +26,24 @@
             <th>Faixa de Idade: </th>
             <th>Media Imc</th>
         </tr>
+        <tr *ngFor="let item of filtroMediaIdadePorTiPoSanguineo">
+            <td> {{item.tipoSanguineo}} </td>
+            <td> {{item.mediaIdade}} </td>
+        </tr>
+      </table>
+
+      <table *ngIf="opcao_selecionada === 4">
+        <tr>
+            <th>Tipo Sanguineo:</th>
+            <th> Média de Idade:</th>
+        </tr>
         <tr *ngFor="let item of filtroMediaImc">
             <td> {{item.faixaIdade}} </td>
             <td> {{item.mediaImc}} </td>
         </tr>
       </table>
-      
-      <table *ngIf="opcao_selecionada === 4">
+
+      <table *ngIf="opcao_selecionada === 5">
         <tr>
             <th>Sexo:</th>
             <th>Total de Obesos:</th>
@@ -43,29 +54,21 @@
             <td> {{item.sexo}} </td>
             <td> {{item.totalObesos}} </td>
             <td> {{item.qtdDoadores}} </td>
-            <td> {{item.porcentagemObesos}}"%" </td>
-        </tr>
-      </table>
-      
-      <table *ngIf="opcao_selecionada === 5">
-        <tr>
-            <th>Tipo Sanguineo:</th>
-            <th> Média de Idade:</th>
-        </tr>
-        <tr *ngFor="let item of filtroMediaIdadePorTiPoSanguineo">
-            <td> {{item.tipoSanguineo}} </td>
-            <td> {{item.mediaIdade}} </td>
+            <td> {{item.porcentagemObesos}}% </td>
         </tr>
       </table>
       
       <table *ngIf="opcao_selecionada === 6">
         <tr>
             <th>Tipo Sanguineo:</th>
-            <th>Quantidade Possiveis Doadores:</th>
+            <th>Numero Doadores:</th>
+  
         </tr>
         <tr *ngFor="let item of filtroQuantidadeReceptoresPorTipoSanguineo">
             <td> {{item.tipoSanguineo}} </td>
             <td> {{item.qtdPossiveisDoadores}} </td>
+        
         </tr>
       </table>
+    
 </div>

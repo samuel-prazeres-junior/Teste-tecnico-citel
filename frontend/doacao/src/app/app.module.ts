@@ -13,6 +13,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table'
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,11 @@ import {MatDividerModule} from '@angular/material/divider';
     MatButtonModule,
     MatRadioModule,
     MatDividerModule, 
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    MatSnackBarModule,
+    BrowserModule,
+    BrowserAnimationsModule
   
   ],
   providers: [],
