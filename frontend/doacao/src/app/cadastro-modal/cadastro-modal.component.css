@@ -2,11 +2,11 @@ body{
     font-family: sans-serif;
 }
 .modal{
-    width: 400px;
-    height: 300px;
+    width: 600px;
+    max-height: 600px;
 }
 .title{
-    margin: 40px auto;
+    margin: 5% 0 40px 0;
     font-size: 25px;
     font-weight: bold;
     text-align: center;
@@ -18,7 +18,7 @@ body{
     width: 100px;
     background-color: black;
     color: white;
-    margin: auto 32%;
+    margin: auto 38%;
     display: inline-block;
     padding: 10px 20px;
     border: none;
@@ -35,7 +35,7 @@ body{
     text-align: center;
 }
 .btn_submit{
-    margin: 20px 37%;
+    margin: 20px 41%;
     width: 100px;
 }
 .mat-mdc-raised-button:not(:disabled) {
@@ -50,7 +50,6 @@ table {
     border-spacing: 0;
     margin-bottom: 20px;
   }
-  /* Estilizar as células de cabeçalho */
   th {
     background-color: #f2f2f2;
     font-weight: bold;
@@ -59,12 +58,21 @@ table {
     border: 1px solid #ddd;
     font-size: 14px;
   }
-  /* Estilizar as células de dados */
   td {
     padding: 8px;
     border: 1px solid #ddd;
   }
-  /* Estilizar linhas alternadas (opcional) */
   tr:nth-child(even) {
     background-color: #f2f2f2;
+  }
+  .fechar-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
   }

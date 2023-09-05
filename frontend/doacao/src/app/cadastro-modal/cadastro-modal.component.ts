@@ -1,14 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import { DoadoresPorEstado } from '../interface/DoadoresPorEstado';
-import { Observable } from 'rxjs';
-import { MediaImc } from '../interface/MediaImc';
-import { PercentualDoadoresObesos } from '../interface/PercentualDoadoresObesos';
-import { MediaIdadePorTiPoSanguineo } from '../interface/MediaIdadePorTiPoSanguineo';
-import { QuantidadeReceptoresPorTipoSanguineo } from '../interface/QuantidadeReceptoresPorTipoSanguineo';
+import { DoadoresPorEstado } from '../interface/response/DoadoresPorEstado';
+import { MediaImc } from '../interface/response/MediaImc';
+import { PercentualDoadoresObesos } from '../interface/response/PercentualDoadoresObesos';
+import { MediaIdadePorTiPoSanguineo } from '../interface/response/MediaIdadePorTipoSanguineo';
+import { QuantidadeReceptoresPorTipoSanguineo } from '../interface/response/QuantidadeReceptoresPorTipoSanguineo';
 import { DoadorService } from '../service/doador.service';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DadosEnviarModal } from '../interface/DadosEnviarModal';
 
 @Component({
   selector: 'app-cadastro-modal',
@@ -16,48 +15,40 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./cadastro-modal.component.css'],
 })
 export class CadastroModalComponent {
-  constructor(private doadorService: DoadorService,
+  constructor(
+    private doadorService: DoadorService,
     private snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<CadastroModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: number,
+    @Inject(MAT_DIALOG_DATA) public data: DadosEnviarModal,
   ) {}
-  
+
   filtroDoadoresPorEstado: DoadoresPorEstado[] = [];
   filtroMediaImc: MediaImc[] = [];
   filtroMediaIdadePorTiPoSanguineo: MediaIdadePorTiPoSanguineo[] = [];
   filtroPercentualDoadoresObesos: PercentualDoadoresObesos[] = [];
   filtroQuantidadeReceptoresPorTipoSanguineo: QuantidadeReceptoresPorTipoSanguineo[] = [];
+
   arquivo:File | null | undefined 
-  opcao_selecionada = this.data;
+  tipoMetodo = this.data.tipoMetodo;
+  listaColunasTabela: string[] = this.data.listaColunasTabela
   arquivoValido = false;
 
   ngOnInit() {
-    switch(this.opcao_selecionada){
-      case 2:
-        this.qtdDoadoresPorEstado();
-        break
-      case 3:
-        this.mediaIdadePorTiPoSanguineo();
-        break
-      case 4:
-        this.calcularMediaImc();
-        break
-      case 5:
-        this.percentualPercentualDoadoresObeso();
-        break
-      case 6:
-          this.qtdPossiveisDoadoresPorTipoSanguineo();
-          break
-    }
-
+    this.filtroDoadoresPorEstado = this.data.resDoadoresPorEstado;
+    this.filtroMediaImc  = this.data.resMediaImc;
+    this.filtroMediaIdadePorTiPoSanguineo = this.data.resMediaIdadePorTipoSanguineo;
+    this.filtroPercentualDoadoresObesos = this.data.resPercentualDoadoresObesos;
+    this.filtroQuantidadeReceptoresPorTipoSanguineo = this.data.resQuantidadeReceptoresPorTipoSanguineo;
   }
   cadastrarPossiveisDoadores(){
-    if(this.arquivo != null && this.arquivoValido){
-      this.doadorService.postDoadores(this.arquivo).subscribe(); 
-      this.mostrarToast("Arquivo salvo com sucesso!")
-     this.fechar();
-    }
-    else{
+    try{
+      if(this.arquivo != null && this.arquivoValido){
+        this.doadorService.postDoadores(this.arquivo).subscribe(); 
+        this.mostrarToast("Arquivo salvo com sucesso!")
+       this.fecharModal();
+      }
+    
+    }catch(error){
       this.mostrarToast("Ocorreu um erro!");
     }
   }
@@ -72,62 +63,29 @@ export class CadastroModalComponent {
       this.arquivoValido = false;
     }
   }
-  qtdDoadoresPorEstado() :void{
-    this.doadorService.getDadosDaAPIDoadoresPorEstado().subscribe(
-      (value) => this.filtroDoadoresPorEstado = value,
-      (error) =>{
-        this.mostrarToast("Ocorreu um erro!")
-        this.fechar();
-      } 
-      
-    );
-  }
-  mediaIdadePorTiPoSanguineo() : void{
-    this.doadorService.getDadosDaAPIMediaIdadePorTiPoSanguineo().subscribe(
-      (value) => this.filtroMediaIdadePorTiPoSanguineo = value,
-      (error) => {
-        this.mostrarToast("Ocorreu um erro!") ;
-        this.fechar();
-      }
-    );
-  }
-  calcularMediaImc() : void{
-    this.doadorService.getDadosDaAPICalcularMediaImc().subscribe(
-      (value) => this.filtroMediaImc = value,
-      (error) => {
-        this.mostrarToast("Ocorreu um erro!");
-        this.fechar();
-      }
-    );
-  }
-  percentualPercentualDoadoresObeso() :void{
-    this.doadorService.getDadosDaAPIPercentualDoadoresObesos().subscribe(
-      (value) => this.filtroPercentualDoadoresObesos = value,
-      (error) => {
-        this.mostrarToast("Ocorreu um erro!");
-        this.fechar();
-      }
-    );
-  }
-  qtdPossiveisDoadoresPorTipoSanguineo() : void{
-    this.doadorService.getDadosDaAPIQtdPossiveisDoadoresPorTipoSanguineo().subscribe(
-      (value) => this.filtroQuantidadeReceptoresPorTipoSanguineo = value,
-      (error) => {
-        this.mostrarToast("Ocorreu um erro!"); 
-        this.fechar();
-      }
-    );
-  }
+ 
   mostrarToast(mensgem: string) {
     this.snackBar.open(mensgem, 'Fechar', {
       duration: 5000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      panelClass: ['erro-toast'],
+      panelClass: ['toast'],
     });
   }
-
-  fechar(){
-    this.dialogRef.close()
+  arredondaParaBaixo(valor: number): number {
+    return Math.floor(valor);
+  }
+  fecharModal(){
+    this.limpar();
+    this.dialogRef.close();
+  }
+  private limpar(){
+    this.data.resDoadoresPorEstado = [];
+    this.data.resMediaImc  = [];
+    this.data.resMediaIdadePorTipoSanguineo = [];
+    this.data.resPercentualDoadoresObesos = [];
+    this.data.resQuantidadeReceptoresPorTipoSanguineo = [];
+    this.data.listaColunasTabela = []
+    this.data.tipoMetodo = ""
   }
 }

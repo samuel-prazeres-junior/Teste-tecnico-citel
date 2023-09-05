@@ -31,15 +31,13 @@ public class DoadorServiceImpl implements DoadorService {
 
     public List<DoadoresPorEstadoDTO> doadoresPorEstado() {
         List<DoadoresPorEstadoDTO> select = enderecoRepository.qtdPossiveisDoadoresPorEstado();
-        if (select.isEmpty()){
+        if (select.isEmpty()) {
             throw new RecursosNaoEncontradoException("Recurso não encontrado");
         }
         return select;
-
     }
 
     public List<PercentualPessoasObesasDTO> percentualPessoalObesas() {
-
         List<PessoasObesasDTO> select = doadorRepository.buscarQuantidadePessoasObesosAgrupadasPorGenero();
         if (!select.isEmpty()) {
             return doadorRepository.buscarQuantidadePessoasObesosAgrupadasPorGenero().stream().map(item -> {
@@ -53,9 +51,10 @@ public class DoadorServiceImpl implements DoadorService {
         }
         throw new RecursosNaoEncontradoException("Recurso não encontrado");
     }
+
     public List<ImcMedioDTO> calcularImcMedioEmCadaFaixaEtariaDeDezEmDezAnos() {
         List<ImcMedioDTO> select = doadorRepository.calcularImcMedioEmCadaFaixaEtariaDeDezEmDezAnos();
-        if (select.isEmpty()){
+        if (select.isEmpty()) {
             throw new RecursosNaoEncontradoException("Recurso não encontrado");
         }
         return select;
@@ -63,13 +62,11 @@ public class DoadorServiceImpl implements DoadorService {
 
     public List<MediaIdadePorTipoSanguineoDTO> mediaIdadePorTipoSanguineo() {
         List<MediaIdadePorTipoSanguineoDTO> select = doadorRepository.mediaPorTipoSanguineo();
-        if (select.isEmpty()){
+        if (select.isEmpty()) {
             throw new RecursosNaoEncontradoException("Recurso não encontrado");
-
         }
         return select;
     }
-
     @Transactional
     public void salvarDoadores(List<DoadorDTO> doadores) {
         doadores.forEach(doadorDTO -> {
@@ -83,16 +80,15 @@ public class DoadorServiceImpl implements DoadorService {
             telefoneRepository.save(telefoneEntity);
         });
     }
-
     @Override
     public List<TipoSanguineoESuaQuantidadeDTO> quantidadeDePossiveisDoadoresParaCadaTipoSamgioneo() {
         List<TipoSanguineoESuaQuantidadeDTO> responseTipoSanguineoQuantidade = new ArrayList<>();
         List<TipoSanguineoEQuantidadeDeReceptores> tiposSanguineos = doadorRepository.contarPessoasPorTipoSanguineo();
-        if (tiposSanguineos.isEmpty()){
+        if (tiposSanguineos.isEmpty()) {
             throw new RecursosNaoEncontradoException("Recurso não encontrado");
         }
         ListTipoSanguineo.tipoSanguineoEseusReceptores().forEach(tabelaTipoSanguineo -> {
-           soma = 0;
+            soma = 0;
             tabelaTipoSanguineo.getTiposReceptores().forEach(receptor -> {
                 soma += tiposSanguineos.stream()
                         .filter(tipoSanguineoEQuantidadeDeReceptores -> tipoSanguineoEQuantidadeDeReceptores.getTipoSanguineo().equals(receptor)).findFirst().orElseThrow(FilterException::new).getQtdPossiveisDoadores();
@@ -100,7 +96,5 @@ public class DoadorServiceImpl implements DoadorService {
             responseTipoSanguineoQuantidade.add(TipoSanguineoESuaQuantidadeDTO.builder().tipoSanguineo(tabelaTipoSanguineo.getTipoSanguineo()).qtdPossiveisDoadores(soma).build());
         });
         return responseTipoSanguineoQuantidade;
-}
-
-
+    }
 }
