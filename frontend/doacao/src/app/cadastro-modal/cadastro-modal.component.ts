@@ -53,7 +53,7 @@ export class CadastroModalComponent {
         });        
       }
       else {
-        this.mostrarToast("Arquivo Inv!");
+        this.mostrarToast("Arquivo Invalido!");
       }
   
   }
