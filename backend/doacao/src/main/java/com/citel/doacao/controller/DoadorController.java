@@ -62,6 +62,6 @@ public class DoadorController {
 
     @GetMapping("quantidade-receptores-por-tipo-sanguineo")
     public List<TipoSanguineoESuaQuantidadeDTO> qtdReceptoresTipoSanguineo(){
-        return service.quantidadeDePossiveisDoadoresParaCadaTipoSamgioneo();
+        return service.quantidadeDePossiveisDoadoresParaCadaTipoSanguioneo();
     }
 }

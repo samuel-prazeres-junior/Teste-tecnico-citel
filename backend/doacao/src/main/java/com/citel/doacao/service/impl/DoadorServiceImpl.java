@@ -36,11 +36,10 @@ public class DoadorServiceImpl implements DoadorService {
         }
         return select;
     }
-
     public List<PercentualPessoasObesasDTO> percentualPessoalObesas() {
         List<PessoasObesasDTO> select = doadorRepository.buscarQuantidadePessoasObesosAgrupadasPorGenero();
         if (!select.isEmpty()) {
-            return doadorRepository.buscarQuantidadePessoasObesosAgrupadasPorGenero().stream().map(item -> {
+            return select.stream().map(item -> {
                 return PercentualPessoasObesasDTO
                         .builder()
                         .sexo(item.getSexo())
@@ -51,7 +50,6 @@ public class DoadorServiceImpl implements DoadorService {
         }
         throw new RecursosNaoEncontradoException("Recurso não encontrado");
     }
-
     public List<ImcMedioDTO> calcularImcMedioEmCadaFaixaEtariaDeDezEmDezAnos() {
         List<ImcMedioDTO> select = doadorRepository.calcularImcMedioEmCadaFaixaEtariaDeDezEmDezAnos();
         if (select.isEmpty()) {
@@ -59,7 +57,6 @@ public class DoadorServiceImpl implements DoadorService {
         }
         return select;
     }
-
     public List<MediaIdadePorTipoSanguineoDTO> mediaIdadePorTipoSanguineo() {
         List<MediaIdadePorTipoSanguineoDTO> select = doadorRepository.mediaPorTipoSanguineo();
         if (select.isEmpty()) {
@@ -75,15 +72,15 @@ public class DoadorServiceImpl implements DoadorService {
                     doadorDTO.getNumero(), doadorDTO.getBairro(), doadorDTO.getCidade(), doadorDTO.getEstado(), doadorEntity);
 
             TelefoneEntity telefoneEntity = Mapper.instanciarTelefone(doadorDTO.getTelefoneFixo(), doadorDTO.getCelular(), doadorEntity);
-            doadorRepository.save(doadorEntity);
             enderecoRepository.save(enderecoEntity);
             telefoneRepository.save(telefoneEntity);
         });
     }
     @Override
-    public List<TipoSanguineoESuaQuantidadeDTO> quantidadeDePossiveisDoadoresParaCadaTipoSamgioneo() {
+    public List<TipoSanguineoESuaQuantidadeDTO> quantidadeDePossiveisDoadoresParaCadaTipoSanguioneo() {
         List<TipoSanguineoESuaQuantidadeDTO> responseTipoSanguineoQuantidade = new ArrayList<>();
         List<TipoSanguineoEQuantidadeDeReceptores> tiposSanguineos = doadorRepository.contarPessoasPorTipoSanguineo();
+        System.out.println(tiposSanguineos);
         if (tiposSanguineos.isEmpty()) {
             throw new RecursosNaoEncontradoException("Recurso não encontrado");
         }

@@ -11,5 +11,5 @@ public interface DoadorService {
     List<MediaIdadePorTipoSanguineoDTO> mediaIdadePorTipoSanguineo();
     void salvarDoadores(List<DoadorDTO> doadores);
 
-    public List<TipoSanguineoESuaQuantidadeDTO> quantidadeDePossiveisDoadoresParaCadaTipoSamgioneo();
+    public List<TipoSanguineoESuaQuantidadeDTO> quantidadeDePossiveisDoadoresParaCadaTipoSanguioneo();
 }
